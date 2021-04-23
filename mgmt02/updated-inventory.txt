@@ -1,0 +1,12 @@
+[centos]
+util-group3
+dhcp01-group3
+dhcp02-group3
+[ubuntu]
+docker-group3
+[windows] 
+dc01-group3
+dc02-group3
+mgmt01-group3
+[windows:vars]
+ansible_shell_type=powershell
