@@ -1,10 +1,12 @@
 --- 
 - name: install apt-get packages on ubuntu machines and install yum packages to centos machines
   hosts: ubuntu
+  become: true
   tasks:
    - name: install apache2 apt-get package on ubuntu machine first
      apt:
        name: apache2
+       state: latest
 
 - hosts: centos
   become: true
