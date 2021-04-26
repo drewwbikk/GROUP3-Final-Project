@@ -1,0 +1,20 @@
+---
+- name: create domain user
+  hosts: dc01-group3
+  tasks:
+    - name: create the user 
+      win_domain_user:
+           firstname: ansible
+           surname: test
+           name: ansible
+           upn: ansible@group3.local
+           state: present
+           fullname: ansible user
+           description: this user was created with ansible
+           password: Enter the user's password here, note this is plaintext. 
+           path: cn=Users,dc=group3,dc=local
+
+    - name: validate user info
+      win_domain_user:
+           name: ansible
+           state: query
