@@ -1,0 +1,21 @@
+--- 
+- name: create user on docker/centos machines
+  hosts: ubuntu:centos
+  become: true
+  tasks:
+   - name: creating ssh account called ansible-shh
+     user:
+       name: ansible-ssh
+       comment: account created with ansible to use ssh
+   
+   - name: deploy ssh key
+     authorized_key: 
+       user: ansible-ssh
+       key: "{{ lookup('file','/home/group3-adm/.ssh/id_rsa.pub') }}"
+       state: present 
+
+   - name: creating account with password called ansible
+     user:
+       name: ansible
+       comment: account created with ansible
+       password: '$6$7iZgELMS8NrL$LzhRhM8Jye7l3YG7CzfB40m02tPkiFoG7VClYFEjMO3Tdgpbmy.Q17BbmpNBnUrUD9bkqDChRClLrlhJg0IkU/'
