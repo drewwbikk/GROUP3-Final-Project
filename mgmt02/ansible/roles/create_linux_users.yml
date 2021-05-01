@@ -3,17 +3,6 @@
   hosts: ubuntu:centos
   become: true
   tasks:
-   - name: creating ssh account called ansible-shh
-     user:
-       name: ansible-ssh
-       comment: account created with ansible to use ssh
-   
-   - name: deploy ssh key
-     authorized_key: 
-       user: ansible-ssh
-       key: "{{ lookup('file','/home/group3-adm/.ssh/id_rsa.pub') }}"
-       state: present 
-
    - name: creating account with password called ansible
      user:
        name: ansible
