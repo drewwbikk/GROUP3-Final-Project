@@ -1,0 +1,32 @@
+---
+- name: "Check if apache is installed on ubuntu machines"
+  hosts: ubuntu
+  become: true
+  tasks:
+   - name: gather package facts
+     package_facts:
+       manager: auto
+   - name: checking if not installed
+     debug:
+       msg: "apache2 is not installed"
+     when: "'apache2' not in ansible_facts.packages"
+   - name: checking if is installed
+     debug:
+       msg: "apache is installed" 
+     when: "'apache2' in ansible_facts.packages"
+
+- name: "Check if apache is installed on centos machines"
+  hosts: centos
+  become: true
+  tasks: 
+   - name: gather package facts
+     package_facts:
+       manager: auto
+   - name: check if not installed
+     debug: 
+       msg: "apache is not installed"
+     when: "'httpd' not in ansible_facts.packages"
+   - name: checking if installed
+     debug:
+       msg: "apache is installed"
+     when: "'httpd' in ansible_facts.packages"   

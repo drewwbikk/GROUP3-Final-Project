@@ -1,0 +1,26 @@
+---
+- name: "Check if apache is installed on ubuntu machines, and remvove package if present"
+  hosts: ubuntu
+  become: true
+  tasks:
+   - name: gather package facts
+     package_facts:
+       manager: auto
+   - name: remove apache, if package isn't present
+     apt:
+       name: apache2
+       state:  absent
+     when: "'apache2' in ansible_facts.packages"
+
+- name: "Check if apache is instlled on centos machines, and remove package if is present"
+  hosts: centos
+  become: true
+  tasks: 
+   - name: gather package facts
+     package_facts:
+       manager: auto
+   - name: remove apache if package isn't present
+     yum: 
+       name: httpd
+       state: absent
+     when: "'httpd' in ansible_facts.packages"

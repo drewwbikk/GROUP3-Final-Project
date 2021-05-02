@@ -1,17 +1,26 @@
---- 
-- name: install apt-get packages on ubuntu machines and install yum packages to centos machines
+---
+- name: "Check if apache is installed on machines, if it isn't installed yet, install the package"
   hosts: ubuntu
   become: true
   tasks:
-   - name: install apache2 apt-get package on ubuntu machine first
+   - name: gather package facts
+     package_facts:
+       manager: auto
+   - name: install apache, if package isn't present
      apt:
        name: apache2
        state: latest
+     when: "'apache2' not in ansible_facts.packages"
 
-- hosts: centos
+- name: "Check if apache is instlled on centos, and install package if it is not present"
+  hosts: centos
   become: true
-  tasks:
-   - name: install apache yum package on centos machines next  
-     yum:
+  tasks: 
+   - name: gather package facts
+     package_facts:
+       manager: auto
+   - name: install apache if package isn't present
+     yum: 
        name: httpd
        state: latest
+     when: "'httpd' not in ansible_facts.packages"
