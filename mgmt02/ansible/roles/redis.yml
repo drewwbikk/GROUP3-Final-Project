@@ -1,0 +1,6 @@
+---
+- hosts: util-group3
+  become: true
+  roles:
+    - role: geerlingguy.repo-epel
+    - role: geerlingguy.redis 
